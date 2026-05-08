@@ -24,6 +24,20 @@ session_start();
 
 <main>
     <h2 class="page-title">Seller Account Registration</h2>
+
+    <?php if (isset($_GET['error'])): ?>
+        <div class="alert alert-error">
+            <?php
+            if ($_GET['error'] === 'duplicate') {
+                echo 'This username, email, or phone number has already been used.';
+            } elseif ($_GET['error'] === 'invalid') {
+                echo 'Please check the form details and try again.';
+            } else {
+                echo 'Registration failed. Please try again.';
+            }
+            ?>
+        </div>
+    <?php endif; ?>
     <div class="card form-card">
         <form id="registerForm" action="register_process.php" method="POST" novalidate>
             <div class="form-group">
