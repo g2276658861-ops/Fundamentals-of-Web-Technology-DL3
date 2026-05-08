@@ -44,3 +44,16 @@ CREATE TABLE verification_codes (
     is_used TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Demo seller account:
+-- username: demo_seller
+-- password: demo123
+INSERT INTO sellers (name, address, phone, email, username, password_hash)
+VALUES
+('Demo Seller', 'Beijing Chaoyang', '13800138000', 'demo@example.com', 'demo_seller', '$2y$12$WjGnGfc.rs41IoXrstYW..i.WdSRS3LHLscWuXj0tUDMF3myb7YT6');
+
+INSERT INTO cars (seller_id, color, model, year, location, price, image, description)
+VALUES
+(1, 'Blue', 'Tesla Model 3', 2024, 'Beijing', 239900, 'Tesla_Model3.png', 'Clean condition and good range for city driving.'),
+(1, 'Black', 'BYD Han', 2023, 'Shanghai', 189800, 'BYD_HanL EV.png', 'Comfortable sedan with low running cost.'),
+(1, 'White', 'NIO ET5', 2024, 'Guangzhou', 289800, 'NIO_ET5.png', 'New energy vehicle with modern interior.');
