@@ -23,6 +23,20 @@ session_start();
 </header>
 <main>
     <h2 class="page-title">Seller Account Login</h2>
+
+    <?php if (isset($_GET['registered'])): ?>
+        <div class="alert alert-success">Registration successful. Please login with your new account.</div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['logout'])): ?>
+        <div class="alert alert-success">You have logged out.</div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['error'])): ?>
+        <div class="alert alert-error">
+            <?php echo $_GET['error'] === 'need_login' ? 'Please login before adding a car.' : 'Invalid username or password.'; ?>
+        </div>
+    <?php endif; ?>
     <div class="card form-card">
         <div class="login-tabs">
             <div class="login-tab active" data-target="password-login">Password</div>
@@ -40,7 +54,9 @@ session_start();
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" name="password" required>
                 </div>
+                <p class="error-text" id="loginPasswordError"></p>
                 <button type="submit" class="btn">Login</button>
+                <p class="register-link">Don't have an account? <a href="Register.php">Register now</a></p>
             </form>
         </div>
 
