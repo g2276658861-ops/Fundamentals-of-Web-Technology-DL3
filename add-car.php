@@ -1,3 +1,6 @@
+<?php
+require_once 'auth_check.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +16,17 @@
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="search.php">Find Cars</a></li>
-            <li><a href="Login.php">Seller Login</a></li>
+            <li><a href="logout.php">Logout</a></li>
             <li><a href="add-car.php" class="active">List Car</a></li>
         </ul>
     </nav>
 </header>
 <main>
     <h2 class="page-title">List Car Information</h2>
+    <div class="seller-bar">
+        <span>Logged in as <strong><?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8'); ?></strong></span>
+        <a href="logout.php" class="btn btn-small">Logout</a>
+    </div>
     <div class="card form-card">
         <form id="addCarForm" action="add_car_process.php" method="POST" novalidate>
             <div class="form-group"><label for="carColor">Body Color</label><input type="text" id="carColor" name="color" required></div>
