@@ -42,6 +42,14 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Cars - Online Car Sales Platform</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .car-description {
+            color: slategray;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin-top: 0.75rem;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -77,6 +85,10 @@ $stmt->close();
                         <h4><?php echo h($car['model']); ?> <?php echo h($car['year']); ?></h4>
                         <p class="car-price">¥<?php echo number_format((float)$car['price']); ?></p>
                         <p class="car-meta">Color: <?php echo h($car['color']); ?> | Location: <?php echo h($car['location']); ?></p>
+                        <?php if (!empty($car['description'])): ?>
+                            <?php $shortDescription = strlen($car['description']) > 120 ? substr($car['description'], 0, 120) . '...' : $car['description']; ?>
+                            <p class="car-description"><?php echo h($shortDescription); ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
