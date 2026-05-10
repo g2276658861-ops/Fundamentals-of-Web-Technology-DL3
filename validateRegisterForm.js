@@ -1,15 +1,18 @@
 import { regexRules } from './regexRules.js';
 
-function showError(id, show) {
-    const element = document.getElementById(id);
-    if (element) element.style.display = show ? 'block' : 'none';
-}
+const showError = (id, show) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = show ? 'block' : 'none';
+};
 
-const form = document.getElementById('registerForm');
-if (form) {
-    form.addEventListener('submit', function (event) {
-        let ok = true;
-        const checks = [
+function validateRegisterForm() {
+    const form = document.getElementById('registerForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        let isValid = true;
+
+        const fields = [
             ['name', 'nameError', regexRules.name],
             ['address', 'addressError', regexRules.address],
             ['phone', 'phoneError', regexRules.phone],
@@ -18,18 +21,22 @@ if (form) {
             ['password', 'passwordError', regexRules.password]
         ];
 
-        checks.forEach(([inputId, errorId, rule]) => {
-            const value = document.getElementById(inputId).value.trim();
-            const valid = rule.test(value);
-            showError(errorId, !valid);
-            if (!valid) ok = false;
+        fields.forEach(([inputId, errorId, rule]) => {
+            const input = document.getElementById(inputId);
+            const ok = input && rule.test(input.value.trim());
+            showError(errorId, !ok);
+            if (!ok) isValid = false;
         });
 
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm_password').value;
-        showError('confirmPasswordError', password !== confirmPassword);
-        if (password !== confirmPassword) ok = false;
+        if (!isValid) {
+            e.preventDefault();
+            showError('registerSuccess', false);
+            return;
+        }
 
-        if (!ok) event.preventDefault();
+        // Do not save to localStorage now. PHP will insert the seller into MySQL.
+        showError('registerSuccess', true);
     });
 }
+
+validateRegisterForm();
