@@ -28,6 +28,12 @@ function validateRegisterForm() {
             if (!ok) isValid = false;
         });
 
+        const password = document.getElementById('password')?.value.trim() || '';
+        const confirmPassword = document.getElementById('confirm_password')?.value.trim() || '';
+        const passwordsMatch = password !== '' && password === confirmPassword;
+        showError('confirmPasswordError', !passwordsMatch);
+        if (!passwordsMatch) isValid = false;
+
         if (!isValid) {
             e.preventDefault();
             showError('registerSuccess', false);

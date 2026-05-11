@@ -98,6 +98,12 @@ session_start();
                     <p class="error-text" id="passwordError">At least 6 characters, letters and numbers only</p>
                 </div>
 
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <p class="error-text" id="confirmPasswordError">Please enter the same password again</p>
+                </div>
+
                 <input type="hidden" id="email_verified" name="email_verified" value="0">
                 <input type="hidden" id="phone_verified" name="phone_verified" value="0">
 
