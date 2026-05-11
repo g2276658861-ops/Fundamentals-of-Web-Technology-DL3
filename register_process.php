@@ -13,15 +13,23 @@ $email = trim($_POST['email'] ?? '');
 $username = trim($_POST['username'] ?? '');
 $password = trim($_POST['password'] ?? '');
 $confirm_password = trim($_POST['confirm_password'] ?? '');
+$email_verified = $_POST['email_verified'] ?? '0';
+$phone_verified = $_POST['phone_verified'] ?? '0';
 
 $valid = $name !== '' && $address !== '' && $phone !== '' && $email !== '' && $username !== '' && $password !== '';
 $valid = $valid && ($password === $confirm_password);
-$valid = $valid && preg_match('/^[A-Za-z\s]+$/', $name);
-$valid = $valid && preg_match('/^[A-Za-z0-9\s,.-]+$/', $address);
+$valid = $valid && ($email_verified === '1') && ($phone_verified === '1');
+$valid = $valid && preg_match('/^[\p{L}\s]+$/u', $name);
+$valid = $valid && preg_match('/^[\p{L}\p{N}\s,.-]+$/u', $address);
 $valid = $valid && preg_match('/^1[3-9]\d{9}$/', $phone);
 $valid = $valid && filter_var($email, FILTER_VALIDATE_EMAIL);
 $valid = $valid && preg_match('/^[A-Za-z0-9]{6,}$/', $username);
 $valid = $valid && preg_match('/^[A-Za-z0-9]{6,}$/', $password);
+
+if (($email_verified !== '1') || ($phone_verified !== '1')) {
+    header('Location: Register.php?error=verify');
+    exit();
+}
 
 if (!$valid) {
     header('Location: Register.php?error=invalid');
