@@ -16,7 +16,7 @@ $price = (float)($_POST['price'] ?? 0);
 $image = trim($_POST['image'] ?? '');
 $description = trim($_POST['description'] ?? '');
 
-if ($color === '' || $model === '' || $location === '' || $image === '') {
+if ($color === '' || $model === '' || $location === '' || $image === '' || $year < 1990 || $year > 2026 || $price <= 0) {
     header('Location: add-car.php?error=invalid');
     exit();
 }
